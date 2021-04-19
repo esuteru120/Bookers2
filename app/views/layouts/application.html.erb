@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <style type="text/css">.turbolinks-progress-bar {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #0076ff;
+  z-index: 9999;
+  transition: width 300ms ease-out, opacity 150ms 150ms ease-in;
+  transform: translate3d(0, 0, 0);
+}</style>
+  <head>
+    <title>Bookers2Ver2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+       <div class="container">
+        <a class="navbar-brand" href="/"><span>Bookers</span></a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+              <li class="nav-item"> <%= link_to "Home", user_path(current_user.id), class: "nav-link fas fa-home" %> </li>
+              <li class="nav-item"> <%= link_to "Users", users_path, class: "nav-link fas fa-users" %> </li>
+              <li class="nav-item"> <%= link_to "Books", books_path, class: "nav-link fas fa-book-open" %> </li>
+              <li class="nav-item"> <%= link_to "logout", destroy_user_session_path, method: :delete, class: "nav-link fas fa-sign-out-alt" %> </li>
+            <% else %>
+              <li class="nav-item"> <%= link_to "Home", root_path, class: "nav-link fas fa-home" %> </li>
+              <li class="nav-item"> <%= link_to "About", home_about_path, class: "nav-link fas fa-link" %> </li>
+              <li class="nav-item"> <%= link_to "sign up", new_user_registration_path, class: "nav-link fas fa-user-plus" %> </li>
+              <li class="nav-item"> <%= link_to "login", new_user_session_path, class: "nav-link fas fa-sign-in-alt" %> </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+     </nav>
+    </header>
+    <% flash.each do |type,message| %>
+    <p class="<%= type %>"><%= message %></p>
+   <% end %>
+    <main>
+     <%= yield %>
+    </main>
+    <footer>
+    <div class="container mt-5">
+  	<div class="row">
+    	<div class="mx-auto">
+    		<p>CopyRight Infratop.inc</p>
+    	</div>
+    </div>
+  </div>
+   </footer>
+ </body>
+</html>
